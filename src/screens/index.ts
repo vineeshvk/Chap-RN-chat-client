@@ -1,16 +1,18 @@
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
-import LoginScreen from './LoginScreen';
-import HomeScreen from './HomeScreen';
-import AuthLoadingScreen from './AuthLoadingScreen';
-import MessageScreen from './MessageScreen';
+import LoginScreen from './Authentication';
+import HomeScreen from './Home';
+import AuthLoadingScreen from './AuthLoading';
+import MessageScreen from './Message';
 
 const main = createStackNavigator(
 	{
 		homeScreen: HomeScreen,
 		messageScreen: MessageScreen
 	},
-	{ initialRouteName: 'homeScreen' }
+	{
+		initialRouteName: 'homeScreen'
+	}
 );
 
 export default createSwitchNavigator(

@@ -1,21 +1,14 @@
 import gql from 'graphql-tag';
 
-export const GET_MESSAGES_FROM_CHAT = gql`
-	subscription GetMessages($chatId: String) {
-		getMessages(chatId: $chatId) {
-			id
-			members {
-				id
-				email
-			}
-			messages {
+export const GET_NEW_MESSAGES = gql`
+	subscription GetNewMessages($chatId: String) {
+		getNewMessages(chatId: $chatId) {
 				id
 				text
 				sender {
 					id
 					email
 				}
-			}
 		}
 	}
 `;

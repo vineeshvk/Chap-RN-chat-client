@@ -35,6 +35,7 @@ export class GlobalState extends Container<globalState>
 			this.setState({ id });
 		}
 	};
+
 	authentication = async (id: string) => {
 		if (id !== '' && id != null) {
 			this.setState({ id, isAuthenticated: true });

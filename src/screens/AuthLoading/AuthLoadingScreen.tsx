@@ -5,15 +5,11 @@ export interface AuthLoadingScreenProps {
 	navigation: any;
 }
 
-export interface AuthLoadingScreenState {}
-
 export default class AuthLoadingScreen extends React.Component<
-	AuthLoadingScreenProps,
-	AuthLoadingScreenState
+	AuthLoadingScreenProps
 > {
 	async componentDidMount() {
 		const auth = await AsyncStorage.getItem('USER_ID');
-		console.log(auth);
 		this.props.navigation.navigate(auth ? 'main' : 'loginScreen');
 	}
 

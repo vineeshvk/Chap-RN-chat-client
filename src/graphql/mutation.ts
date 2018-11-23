@@ -5,3 +5,12 @@ export const LOGIN_MUTATION = gql`
 		login(email: $email, password: $password)
 	}
 `;
+
+export const CREATE_MESSAGE = gql`
+mutation CreateMessage($chatId:String!,$senderId:String!,$text:String!){
+  createMessage(chatId:$chatId,senderId:$senderId,text:$text){
+    path
+    message
+  }
+}
+`

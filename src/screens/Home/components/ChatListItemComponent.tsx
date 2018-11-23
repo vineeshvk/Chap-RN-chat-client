@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Subscribe } from 'unstated';
-import { GlobalState } from '../store/store';
+import { GlobalState } from '../../../store/store';
 import { withNavigation } from 'react-navigation';
 
 export interface chat_props {
@@ -14,30 +14,43 @@ export interface ChatListItemProps {
 	chat: chat_props;
 	navigation: any;
 }
+type ReturnMailProp = { id: string };
 
 class ChatListItemComponent extends React.Component<ChatListItemProps> {
-	render() {
+	mail: string;
+
+	constructor(props: ChatListItemProps) {
+		super(props);
+		this.mail = '';
+	}
+
+	onPressChat = () => {
 		const {
-			chat: { members, messages, id }
+			chat: { messages, id },
+			navigation
 		} = this.props;
 
+		navigation.navigate('messageScreen', {
+			messages,
+			chatId: id,
+			friend: this.mail
+		});
+	};
+
+	returnMail = ({ id }: ReturnMailProp) => {
+		const { members } = this.props.chat;
+		const chatMember = members.filter(item => item.id !== id)[0];
+		return chatMember.email;
+	};
+
+	render() {
 		return (
-			<TouchableOpacity
-				onPress={() => {
-					this.props.navigation.navigate('messageScreen', {
-						messages,
-						chatId: id
-					});
-				}}
-			>
+			<TouchableOpacity onPress={this.onPressChat}>
 				<View style={styles.container}>
 					<Subscribe to={[GlobalState]}>
 						{(global: GlobalState) => {
-							const chatMember = members.filter(
-								item => item.id !== global.state.id
-							)[0];
-							console.log(chatMember);
-							return <Text>{chatMember.email}</Text>;
+							this.mail = this.returnMail(global.state);
+							return <Text>{this.mail}</Text>;
 						}}
 					</Subscribe>
 				</View>
