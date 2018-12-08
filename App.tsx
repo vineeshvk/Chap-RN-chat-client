@@ -1,20 +1,22 @@
-import { ApolloLink, HttpLink, InMemoryCache } from 'apollo-boost';
-import { ApolloClient } from 'apollo-client';
-import { split } from 'apollo-link';
-import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
-import React, { Component } from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { StatusBar } from 'react-native';
-import { Provider } from 'unstated';
-import Navigator from './src';
+import { ApolloLink, HttpLink, InMemoryCache } from "apollo-boost";
+import { ApolloClient } from "apollo-client";
+import { split } from "apollo-link";
+import { WebSocketLink } from "apollo-link-ws";
+import { getMainDefinition } from "apollo-utilities";
+import React, { Component } from "react";
+import { ApolloProvider } from "react-apollo";
+import { StatusBar } from "react-native";
+import { Provider } from "unstated";
+import Navigator from "./src";
+
+const ADDRESS = "192.168.1.104:4000";
 
 const httpLink = new HttpLink({
-	uri: 'http://192.168.1.103:4000'
+	uri: `http://${ADDRESS}`
 });
 
 const wsLink = new WebSocketLink({
-	uri: `ws://192.168.1.103:4000/graphql`,
+	uri: `ws://${ADDRESS}/graphql`,
 	options: {
 		reconnect: true
 	}
@@ -23,7 +25,7 @@ const wsLink = new WebSocketLink({
 const link = split(
 	({ query }) => {
 		const { kind, operation } = getMainDefinition(query);
-		return kind === 'OperationDefinition' && operation === 'subscription';
+		return kind === "OperationDefinition" && operation === "subscription";
 	},
 	wsLink,
 	httpLink
