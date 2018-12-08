@@ -69,6 +69,7 @@ export default class MessageScreen extends React.Component<
 
 	updateQueryFunc = (prev: any, { subscriptionData: { data } }: any) => {
 		if (!data) return prev;
+		console.log(data.getNewMessages);
 
 		return this.returnNewMessage(prev.getMessages, data.getNewMessages);
 	};

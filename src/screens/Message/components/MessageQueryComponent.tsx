@@ -14,6 +14,8 @@ const MessageQueryComponent = ({ chatId, subscribeNew, userId }: Props) => (
 	<Query query={GET_MESSAGES} variables={{ chatId }}>
 		{({ data, loading, error, subscribeToMore }) => {
 			if (loading || error || data === null) return <View />;
+			console.log(data.getMessages.messages);
+
 			subscribeNew(subscribeToMore);
 
 			return (

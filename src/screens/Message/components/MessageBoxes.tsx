@@ -9,6 +9,8 @@ type Props = {
 
 const MessageBoxes = ({ children, sender }: Props) => {
 	const { messageBoxStyle, senderBox, receiverBox } = styles;
+	console.log(sender);
+
 	const additionalStyle = sender ? senderBox : receiverBox;
 	const textColor = sender ? '#fff' : '#000';
 	const alignItems = sender ? 'flex-end' : 'flex-start';
